@@ -20,7 +20,7 @@
     "pack:pollyfills": "concat-glob-cli -f \"dist/lcu/scripts.*.js\" -o dist/lcu/wc/lcu.pollyfills.js",
     "start": "ng serve demo --port=4210",
     "build": "npm run build:common && npm run build:lcu",
-    "start:demo": "ng serve demo --port=42xx",
+    "start:demo": "ng serve demo --port=4228",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
