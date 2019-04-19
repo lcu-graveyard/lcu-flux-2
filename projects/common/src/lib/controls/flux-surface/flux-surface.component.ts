@@ -51,8 +51,8 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   @Input('layout')
   public FluxLayout: FluxLayout;
 
-  @Input('modules')
-  public Modules: FluxModuleOption[];
+  @Input('options')
+  public Options: FluxModuleOption[];
 
   @Output('on-error')
   public OnError: EventEmitter<{ Error: string; Action: string }>;
@@ -201,11 +201,11 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
         break;
     }
 
-    const sourceOpt = this.Modules.find(item => {
+    const sourceOpt = this.Options.find(item => {
       return item.Lookup === source.data.Lookup;
     });
 
-    const targetOpt = this.Modules.find(item => {
+    const targetOpt = this.Options.find(item => {
       return item.Lookup === target.data.Lookup;
     });
 
@@ -257,7 +257,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
       return x.source.id === node.id;
     });
 
-    const nodeOpt = this.Modules.find(item => {
+    const nodeOpt = this.Options.find(item => {
       return item.Lookup === node.data.Lookup;
     });
 
@@ -270,9 +270,9 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
       });
     } else if (node.data.OutgoingConnectionLimit === -1 || outgoingEdges.length < node.data.OutgoingConnectionLimit) {
       const flowModuleTypes = this.listFlowModuleTypes();
-      const moduleOptions = this.Modules;
+      const moduleOptions = this.Options;
 
-      if (this.Modules) {
+      if (this.Options) {
         let outgoingTypes = [...node.data.OutgoingConnectionTypes];
 
         moduleOptions.forEach(mo => {

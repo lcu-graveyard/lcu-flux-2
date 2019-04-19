@@ -5,6 +5,7 @@ export * from './lib/models/FluxConfig';
 export * from './lib/models/FluxLayout';
 export * from './lib/models/FluxModule';
 export * from './lib/models/FluxModuleOption';
+export * from './lib/models/FluxModuleValidations';
 export * from './lib/models/FluxStream';
 export * from './lib/svc/flux-parser';
 export * from './lib/elements/flux-element/flux-element.component';

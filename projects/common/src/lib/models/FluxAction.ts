@@ -3,9 +3,7 @@ export class FluxAction {
 
   public Disabled?: boolean;
 
-  public Icon?: string;
-
-  public IconSet?: string;
+  public Icon?: Icon;
 
   public Order?: number;
 

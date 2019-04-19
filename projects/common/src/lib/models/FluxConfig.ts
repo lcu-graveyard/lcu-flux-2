@@ -7,8 +7,6 @@ export class FluxConfig {
 
   public Deleted?: boolean;
 
-  public ID: string;
-
   public Inactive?: boolean;
 
   public Lookup: string;
