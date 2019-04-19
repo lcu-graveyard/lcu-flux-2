@@ -1,0 +1,25 @@
+.jtk-surface-canvas {
+  display: flex;
+}
+
+.miniview {
+  position: absolute;
+  top: auto !important;
+  left: auto;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+.flux-surface-controls {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1;
+}
+
+::ng-deep {
+  .jtk-surface {
+    height: 100% !important;
+    width: 100% !important;
+  }
+}

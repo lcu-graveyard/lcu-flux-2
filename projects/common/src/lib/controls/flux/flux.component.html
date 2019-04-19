@@ -1,0 +1,37 @@
+<mat-drawer-container class="flux-container">
+  <mat-drawer-content>
+    <a
+      mat-icon-button
+      class="drawer-toggle drawer-toggle-{{ ToggleAction.Order }}"
+      (click)="EmitAction(ToggleAction)"
+      [matTooltip]="ToggleAction.Text"
+      *ngIf="ToggleAction"
+    >
+      <mat-icon>{{ ToggleAction.Icon }}</mat-icon>
+    </a>
+
+    <lcu-flux-surface class="flux-surface" [modules]="Modules" [config]="Config"> </lcu-flux-surface>
+  </mat-drawer-content>
+
+  <mat-drawer mode="side" [opened]="DrawerOpen" position="end" #drawer>
+    <mat-toolbar>
+      <ng-container *ngIf="!Loading">
+        <span class="flux-actions">
+          <span class="flux-action" *ngFor="let action of Actions">
+            <a mat-icon-button (click)="EmitAction(action)" [disabled]="action.Disabled" [matTooltip]="action.Text" *ngIf="!!action.Icon">
+              <mat-icon>{{ action.Icon }}</mat-icon>
+            </a>
+
+            <a mat-button (click)="EmitAction(action)" [disabled]="action.Disabled" [matTooltip]="action.Text" *ngIf="!action.Icon">
+              {{ action.Text }}
+            </a>
+          </span>
+        </span>
+      </ng-container>
+
+      <ng-container *ngIf="Loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>
+    </mat-toolbar>
+  </mat-drawer>
+</mat-drawer-container>

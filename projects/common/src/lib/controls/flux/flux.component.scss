@@ -1,0 +1,47 @@
+.flux-container {
+  height: 100%;
+
+  .mat-drawer {
+    width: 300px !important;
+
+    .flux-actions {
+      margin: auto;
+    }
+  }
+
+  .mat-drawer-content {
+    position: relative;
+
+    .drawer-toggle {
+      position: absolute;
+      z-index: 1;
+
+      &.drawer-toggle-0 {
+        top: 2rem;
+        right: 2rem;
+      }
+
+      &.drawer-toggle-1 {
+        bottom: 2rem;
+        right: 2rem;
+      }
+
+      &.drawer-toggle-2 {
+        bottom: 2rem;
+        left: 2rem;
+      }
+
+      &.drawer-toggle-3 {
+        top: 2rem;
+        left: 2rem;
+      }
+    }
+
+    .flux-surface {
+      height: 100%;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+}

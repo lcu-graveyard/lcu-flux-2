@@ -17,14 +17,14 @@
 		"lib": [
 			"es2018",
 			"dom"
-		],
+    ],
 		"paths": {
-			"common": [
+			"@lcu-ide/lcu-flux-common": [
 				"dist/common"
 			],
-			"common/*": [
+			"@lcu-ide/lcu-flux-common/*": [
 				"dist/common/*"
 			]
 		}
-	}
+  }
 }

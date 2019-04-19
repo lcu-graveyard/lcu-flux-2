@@ -1,1 +1,796 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/_theming';
+
+@include mat-core();
+
+$forge-app-primary: mat-palette($mat-indigo);
+$forge-app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$forge-app-warn: mat-palette($mat-red);
+
+$forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-app-warn);
+
+@include angular-material-theme($forge-app-theme);
+
+@mixin flux($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  iframe {
+    border: none !important;
+  }
+
+  .spinner-container {
+    box-shadow: none !important;
+    background: rgba(0, 0, 0, 0);
+    padding-top: 50px;
+
+    .spinner {
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+
+  .flux-container {
+    height: 100%;
+    min-height: 100%;
+    overflow: auto;
+    background-size: cover;
+    background-image: url("https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg");
+    background-position: 50% 100%;
+    background-size: initial;
+    background-position: initial;
+    background: none;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+
+    &::before {
+      content: " ";
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      will-change: transform;
+      z-index: -1;
+      background-size: cover;
+      background-position: 50% 100%;
+      background-image: url("https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg");
+    }
+
+    .mat-list {
+      text-align: left;
+    }
+
+    .mat-list .mat-list-item .mat-line,
+    .mat-nav-list .mat-list-item .mat-line {
+      white-space: normal;
+    }
+
+    .mat-list .mat-list-item .mat-list-item-content,
+    .mat-nav-list .mat-list-item .mat-list-item-content {
+      height: auto !important;
+    }
+
+    .mat-list .mat-subheader {
+      display: block !important;
+    }
+
+    .mat-list .mat-subheader,
+    .mat-nav-list .mat-subheader,
+    .mat-list .mat-list-item,
+    .mat-nav-list .mat-list-item {
+      color: mat-color($primary, 50);
+    }
+
+    .mat-raised-button.mat-accent {
+      margin-right: 10px;
+    }
+
+    .main-flow-inner {
+      width: 80%;
+      margin: 4rem auto;
+      max-width: 770px;
+      cursor: default !important;
+
+      .mat-card {
+        margin: 1rem;
+        color: mat-color($primary, 50);
+        background-color: transparent;
+        background-image: linear-gradient(
+          to bottom,
+          transparentize(mat-color($primary, 900), 0.4),
+          transparentize(mat-color($primary, 900), 0.4)
+        );
+      }
+    }
+
+    .panel {
+      display: block;
+      height: 100%;
+      width: 100%;
+      color: mat-color($primary, 50);
+      background-color: transparent;
+      background-image: linear-gradient(
+        to bottom,
+        transparentize(mat-color($primary, 900), 0.3),
+        transparentize(mat-color($primary, 900), 0.3)
+      );
+
+      h1 {
+        margin: 0;
+        font-size: 84px;
+        letter-spacing: 3px;
+      }
+
+      h2 {
+        margin: 1rem;
+        font-size: 60px;
+        letter-spacing: 2px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 36px;
+        letter-spacing: 1.5px;
+      }
+
+      .get-started {
+        .mat-raised-button {
+          margin: 2rem;
+          padding: 1rem 4rem;
+          font-size: 36px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          white-space: normal;
+        }
+      }
+
+      @media screen and (max-width: 649px) {
+        h1 {
+          font-size: 60px;
+        }
+
+        h2 {
+          font-size: 48px;
+        }
+
+        h3 {
+          font-size: 30px;
+        }
+      }
+
+      @media screen and (max-width: 549px) {
+        h1 {
+          font-size: 48px;
+        }
+
+        h2 {
+          font-size: 36px;
+        }
+
+        h3 {
+          font-size: 24px;
+        }
+
+        .get-started {
+          .mat-raised-button {
+            font-size: 24px;
+            padding: 0.5rem 2rem;
+          }
+        }
+      }
+
+      @media screen and (max-width: 349px) {
+        padding: 0.5rem;
+
+        .get-started {
+          .mat-raised-button {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 0.5rem 2rem;
+          }
+        }
+      }
+    }
+
+    .giving,
+    .flows,
+    .input,
+    .output,
+    .setup {
+      margin: 2rem;
+      border-radius: 1rem;
+      color: mat-color($primary, 50);
+      background-color: transparent;
+      background-image: linear-gradient(
+        to bottom,
+        transparentize(mat-color($primary, 900), 0.4),
+        transparentize(mat-color($primary, 900), 0.4)
+      );
+
+      h1 {
+        margin: 0;
+        font-size: 108px;
+        letter-spacing: 3px;
+      }
+
+      h2 {
+        margin: 1rem;
+        font-size: 72px;
+        letter-spacing: 2px;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 1.5px;
+      }
+
+      .get-started {
+        .mat-raised-button {
+          margin: 2rem;
+          padding: 1rem 4rem;
+          font-size: 36px;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          white-space: normal;
+        }
+      }
+
+      @media screen and (max-width: 649px) {
+        h1 {
+          font-size: 81px;
+        }
+
+        h2 {
+          font-size: 54px;
+        }
+
+        h3 {
+          font-size: 24px;
+        }
+      }
+
+      @media screen and (max-width: 549px) {
+        h1 {
+          font-size: 54px;
+        }
+
+        h2 {
+          font-size: 36px;
+        }
+
+        h3 {
+          font-size: 18px;
+        }
+
+        .get-started {
+          .mat-raised-button {
+            font-size: 24px;
+            padding: 0.5rem 2rem;
+          }
+        }
+      }
+
+      @media screen and (max-width: 349px) {
+        padding: 0.5rem;
+
+        .get-started {
+          .mat-raised-button {
+            font-size: 18px;
+            font-weight: 700;
+            padding: 0.5rem 2rem;
+          }
+        }
+      }
+    }
+
+    .input,
+    .output {
+      h2 {
+        font-size: 48px;
+      }
+
+      h3 {
+        font-size: 18px;
+        white-space: nowrap;
+      }
+
+      .option {
+        h3 {
+          font-size: 24px;
+        }
+
+        .mat-card-content {
+          display: block;
+          height: 100px;
+        }
+
+        &.active {
+          .mat-card-content {
+            height: auto;
+          }
+        }
+      }
+
+      @media screen and (max-width: 949px) {
+        .option {
+          .mat-card-content {
+            height: 75px;
+          }
+
+          &.active {
+            .mat-card-content {
+              height: auto;
+            }
+          }
+        }
+      }
+    }
+
+    .setup {
+      h2 {
+        font-size: 36px;
+      }
+
+      h3 {
+        font-size: 24px;
+      }
+
+      .provision {
+        margin: 2rem;
+
+        .mat-list-item {
+          padding-left: 2rem;
+        }
+
+        .mat-divider {
+          border-top-color: rgba(255, 255, 255, 0.35);
+        }
+      }
+
+      .cost {
+        .mat-list .mat-subheader,
+        .mat-nav-list .mat-subheader,
+        .mat-list .mat-list-item,
+        .mat-nav-list .mat-list-item {
+          color: mat-color($primary, 900);
+        }
+
+        .price {
+          float: right;
+          text-align: right;
+          width: 125px;
+        }
+      }
+    }
+    /*.jtk-endpoint, .jtk-connector, .jtk-overlay {
+              z-index: 600;
+          }*/
+    .stream-standard {
+      cursor: pointer;
+      stroke-width: 0.2rem;
+      stroke: mat-color($primary, 900);
+    }
+
+    .stream-label {
+      color: mat-color($primary);
+      cursor: pointer;
+      user-select: none;
+
+      &.transformed {
+        color: mat-color($accent);
+      }
+
+      &:hover,
+      &.jtk-hover {
+        color: whitesmoke;
+      }
+    }
+
+    .flow {
+      height: 100%;
+      user-select: none;
+
+      .mat-grid-tile {
+        overflow: visible;
+      }
+
+      .main {
+        height: 100%;
+      }
+
+      .editor {
+        height: 100%;
+        overflow: auto;
+        position: relative;
+        /*padding: 2rem;*/
+        .module {
+          position: absolute;
+          width: 100px;
+          height: 100px;
+
+          &.sm {
+            width: 25px;
+            height: 25px;
+          }
+
+          &.lg {
+            width: 150px;
+            height: 150px;
+          }
+        }
+      }
+
+      .support,
+      .develop,
+      .ops,
+      .module-options {
+        margin-top: 2rem;
+      }
+
+      .module-options {
+        > div {
+          overflow: auto;
+        }
+
+        .add-input {
+          .add-options {
+            margin: 1rem 0;
+            overflow-x: auto;
+          }
+        }
+
+        .add-output {
+          .add-options {
+            margin: 1rem 0;
+            overflow-x: auto;
+          }
+        }
+
+        .modules {
+          .module-sets {
+            margin: 1rem;
+
+            a:not([color]) {
+              color: mat-color($primary, 900);
+            }
+          }
+
+          .workbench {
+            margin: 1rem;
+            padding: 1rem;
+            overflow-x: auto;
+            background-image: linear-gradient(
+              to bottom,
+              transparentize(mat-color($primary, 900), 0.2),
+              transparentize(mat-color($primary, 900), 0.2)
+            );
+          }
+        }
+      }
+
+      .module-manage {
+        margin-bottom: 4rem;
+        margin-top: 4rem;
+      }
+
+      .flow-options {
+        // position: absolute !important;
+        // top: 10px;
+        // right: 25px;
+        // z-index: 100;
+        // width: 100%;
+        background-color: transparent;
+        padding-left: 2fem;
+        height: 100%;
+        position: relative;
+
+        .flow-layout-behavior {
+          height: 100%;
+          position: relative;
+        }
+
+        .jtk-surface {
+          height: 100% !important;
+        }
+
+        .miniview {
+          position: absolute;
+          top: auto !important;
+          left: auto;
+          bottom: 1.5rem;
+          right: 1.5rem;
+        }
+      }
+
+      .flow-options-menu {
+        height: 100%;
+        background-color: mat-color($accent, 100);
+        text-align: left;
+        max-width: 246px;
+
+        mat-toolbar {
+          background-color: mat-color($accent, 100);
+          min-height: 30px;
+          height: 30px;
+
+          span,
+          mat-toolbar-row {
+            text-align: center;
+            width: 100%;
+            height: 30px;
+            padding-top: 15px;
+
+            mat-icon {
+              cursor: pointer;
+              padding-right: 15px;
+            }
+          }
+        }
+
+        mat-card {
+          padding: 0;
+          margin: 20px;
+
+          a {
+            text-align: left;
+            width: 100%;
+          }
+
+          .mat-list-item-content {
+            padding: 0;
+          }
+
+          mat-icon {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .flow-action-icons {
+        text-align: center;
+        padding: 10px;
+      }
+
+      .flow-options-menu-group {
+        text-align: left;
+        margin: 0px 8px;
+        max-height: 0px;
+        overflow: hidden;
+        transition: all 0s;
+
+        &.open {
+          max-height: 4000px;
+          transition: all 2s;
+        }
+
+        hr {
+          margin: 0;
+        }
+
+        mat-list-item a {
+          cursor: move;
+        }
+      }
+
+      .flow-options-toggle {
+        position: absolute !important;
+        top: 50px;
+        right: 50px;
+        z-index: 200;
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+@mixin flux-core($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  .no-pointer {
+    cursor: default !important;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    h3 {
+      font-size: 24px;
+    }
+
+    .snack-bar-container {
+      background-color: mat-color($warn, 300);
+      max-width: 1500px;
+    }
+
+    .no-scroll {
+      overflow: hidden;
+    }
+
+    .mat-button,
+    .mat-raised-button {
+      margin-left: 0 !important;
+    }
+
+    .mat-tooltip {
+      font-size: 14px !important;
+    }
+
+    .mat-select-panel {
+      margin-left: 30px !important;
+    }
+
+    .cdk-overlay-pane {
+      max-width: 100% !important;
+    }
+
+    .mat-option-text {
+      overflow: initial;
+    }
+
+    .dnd-drag-start {
+      -moz-transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+      transform: scale(0.8);
+      opacity: 0.7;
+      border: 2px dashed #000;
+    }
+
+    .dnd-drag-enter {
+      opacity: 0.7;
+      border: 2px dashed #000;
+    }
+
+    .dnd-drag-over {
+      border: 2px dashed #000;
+    }
+
+    .dnd-sortable-drag {
+      -moz-transform: scale(0.9);
+      -webkit-transform: scale(0.9);
+      transform: scale(0.9);
+      opacity: 0.7;
+      border: 1px dashed #000;
+    }
+
+    .fill-remaining-space {
+      flex: 1 1 auto;
+    }
+
+    .container {
+      padding-bottom: 20px;
+      padding-right: 0;
+      padding-left: 0;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .flow-module-add-function {
+      position: absolute !important;
+      right: 50px;
+      z-index: 200;
+      opacity: 0.7;
+      top: 40px;
+    }
+
+    .mat-dialog-container {
+      max-width: 100%;
+    }
+
+    .mat-dialog-content.stretch-dialog-height {
+      height: 80%;
+      max-height: 85%;
+    }
+
+    .module-manager {
+      height: 100%;
+      width: 100%;
+
+      .inline {
+        display: inline-block;
+      }
+
+      form {
+        height: 100%;
+      }
+
+      .container {
+        height: 100%;
+        padding: 0.25rem;
+        overflow: auto;
+        width: 100%;
+
+        .header {
+          width: 100%;
+          padding: 0;
+          background-color: white;
+
+          h1 {
+            padding: 0;
+            font-size: 24px;
+          }
+        }
+
+        .content {
+          width: 100%;
+          height: 100%;
+          overflow-y: auto;
+
+          .mat-tab-body {
+            overflow: hidden;
+          }
+
+          .mat-tab-header {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 500;
+          }
+
+          .mat-card {
+            margin: 0.5rem;
+          }
+
+          .flow-module-add-schema {
+            position: absolute !important;
+            top: 80px;
+            right: 50px;
+            z-index: 200;
+            opacity: 0.7;
+          }
+
+          .flow-module-schema-options {
+            position: absolute !important;
+            top: 80px;
+            left: 555px;
+            z-index: 200;
+            opacity: 0.7;
+            width: 200px;
+            max-width: 200px;
+          }
+
+          .jtk-surface-pan {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  .mat-spinner {
+    margin: auto;
+  }
+
+  .filler {
+    flex: auto 1 1;
+  }
+
+  .mat-full-width {
+    width: 100%;
+  }
+
+  .mat-list-item {
+    &.active {
+      background-color: transparentize($color: #000000, $amount: .95)
+    }
+  }
+}
+
+@include flux($forge-app-theme);
+
+@include flux-core($forge-app-theme);
