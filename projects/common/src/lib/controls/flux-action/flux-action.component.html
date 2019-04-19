@@ -1,0 +1,7 @@
+<a mat-icon-button (click)="EmitAction()" [disabled]="Action.Disabled" [matTooltip]="Action.Text" *ngIf="!!Action.Icon">
+  <mat-icon>{{ Action.Icon.Icon }}</mat-icon>
+</a>
+
+<a mat-button (click)="EmitAction()" [disabled]="Action.Disabled" [matTooltip]="Action.Text" *ngIf="!Action.Icon">
+  {{ Action.Text }}
+</a>

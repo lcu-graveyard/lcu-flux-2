@@ -13,7 +13,6 @@ import {
 import { Guid } from '@lcu-ide/common';
 import { jsPlumb, jsPlumbToolkit } from 'jsplumbtoolkit';
 import { FluxModuleOption } from '../../models/FluxModuleOption';
-import { FluxConfig } from '../../models/FluxConfig';
 import { FluxActionEvent } from '../../models/FluxActionEvent';
 import { FluxAction } from '../../models/FluxAction';
 import { jsPlumbToolkitComponent } from '../../jsplumb/toolkit/toolkit.component';
@@ -21,6 +20,7 @@ import { FluxModuleComponent } from '../flux-module/flux-module.component';
 import { FluxParser } from '../../svc/flux-parser';
 import { FluxConfigManager } from '../../svc/flux-config-manager';
 import { FluxLayout } from '../../models/FluxLayout';
+import { FluxOutput } from '../../models/FluxOutput';
 
 @Component({
   selector: 'lcu-flux-surface',
@@ -40,10 +40,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   public Action: EventEmitter<FluxActionEvent>;
 
   @Input('changed')
-  public Changed: EventEmitter<FluxConfig>;
-
-  @Input('config')
-  public Config: FluxConfig;
+  public Changed: EventEmitter<FluxOutput>;
 
   @Input('flow')
   public Flow: string;
@@ -88,7 +85,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   }
 
   public ngOnChanges(_: SimpleChanges) {
-    if (_['Modules'] || _['Config']) {
+    if (_['Modules'] || _['__more__']) {
       this.refreshSurface();
     }
   }
@@ -202,11 +199,11 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
     }
 
     const sourceOpt = this.Options.find(item => {
-      return item.Lookup === source.data.Lookup;
+      return item.ModuleType === source.data.ModuleType;
     });
 
     const targetOpt = this.Options.find(item => {
-      return item.Lookup === target.data.Lookup;
+      return item.ModuleType === target.data.ModuleType;
     });
 
     if (!validControlTypeConnection) {
@@ -258,7 +255,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
     });
 
     const nodeOpt = this.Options.find(item => {
-      return item.Lookup === node.data.Lookup;
+      return item.ModuleType === node.data.ModuleType;
     });
 
     let isValid = false;
@@ -276,9 +273,9 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
         let outgoingTypes = [...node.data.OutgoingConnectionTypes];
 
         moduleOptions.forEach(mo => {
-          if (mo.IncomingConnectionTypes.some(ct => ct === node.data.ModuleType)) {
-            outgoingTypes.push(mo.ModuleType);
-          }
+          // if (mo.IncomingConnectionTypes.some(ct => ct === node.data.ModuleType)) {
+          //   outgoingTypes.push(mo.ModuleType);
+          // }
         });
 
         outgoingTypes = outgoingTypes.filter((x, i, a) => a.indexOf(x) === i);
@@ -534,14 +531,14 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
 
   public EdgeMoved(edge: any, oldTarget: any, newTarget: any) {}
 
-  public ExportFlow(config: FluxConfig) {
+  public ExportFlow() {
     const self = this;
 
     return this.ToolkitComponent.Toolkit.exportData({
       type: 'fathymIO',
       parameters: {
         //  TODO:  rename from flow
-        flow: config
+        flow: {}//config
       }
     });
   }
@@ -862,7 +859,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   public mapFluxConfig() {
     this.ToolkitComponent.Toolkit.load({
       type: 'fathymIO',
-      data: this.Config,
+      data: {}, //this.Config,
       onload: () => {
         this.ToolkitComponent.Surface.repaintEverything();
 
@@ -885,8 +882,8 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   }
 
   protected prepareNodesAndPorts() {
-    if (this.Modules) {
-      this.Modules.forEach(mdl => {
+    if (this.Options) {
+      this.Options.forEach(mdl => {
         Object.keys(this.FluxLayout.View.nodes).push(mdl.ModuleType);
 
         Object.keys(this.FluxLayout.View.ports).push(mdl.ModuleType);
@@ -903,7 +900,7 @@ export class FluxSurfaceComponent implements AfterViewInit, OnChanges, OnInit {
   }
 
   protected refreshSurface() {
-    if (this.Config && this.Modules && this.ToolkitComponent.Toolkit) {
+    if (this.Options && this.ToolkitComponent.Toolkit) {
       this.fluxCfgMgr.Configure(this.Flow, this.NodeFactory).subscribe(layout => {
         this.FluxLayout = layout;
 

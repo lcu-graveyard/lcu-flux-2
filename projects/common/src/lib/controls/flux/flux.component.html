@@ -1,31 +1,23 @@
 <mat-drawer-container class="flux-container">
   <mat-drawer-content>
-    <a
-      mat-icon-button
+    <lcu-flux-action
+      [action]="ToggleAction"
+      (on-action)="EmitAction(ToggleAction)"
       class="drawer-toggle drawer-toggle-{{ ToggleAction.Order }}"
-      (click)="EmitAction(ToggleAction)"
-      [matTooltip]="ToggleAction.Text"
       *ngIf="ToggleAction"
+      [matTooltip]="ToggleAction.Text"
     >
-      <mat-icon>{{ ToggleAction.Icon }}</mat-icon>
-    </a>
+    </lcu-flux-action>
 
-    <lcu-flux-surface class="flux-surface" [modules]="Modules" [config]="Config"> </lcu-flux-surface>
+    <!-- <lcu-flux-surface class="flux-surface" [modules]="Modules" [config]="Config"> </lcu-flux-surface> -->
   </mat-drawer-content>
 
-  <mat-drawer mode="side" [opened]="DrawerOpen" position="end" #drawer>
+  <mat-drawer mode="side" [opened]="ModulesOpen" position="end" #drawer>
     <mat-toolbar>
       <ng-container *ngIf="!Loading">
         <span class="flux-actions">
-          <span class="flux-action" *ngFor="let action of Actions">
-            <a mat-icon-button (click)="EmitAction(action)" [disabled]="action.Disabled" [matTooltip]="action.Text" *ngIf="!!action.Icon">
-              <mat-icon>{{ action.Icon }}</mat-icon>
-            </a>
-
-            <a mat-button (click)="EmitAction(action)" [disabled]="action.Disabled" [matTooltip]="action.Text" *ngIf="!action.Icon">
-              {{ action.Text }}
-            </a>
-          </span>
+          <lcu-flux-action [action]="action" (on-action)="EmitAction(action)" class="flux-action" *ngFor="let action of Actions">
+          </lcu-flux-action>
         </span>
       </ng-container>
 
@@ -33,5 +25,7 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
       </ng-container>
     </mat-toolbar>
+
+    <lcu-flux-modules-bank [options]="Options"></lcu-flux-modules-bank>
   </mat-drawer>
 </mat-drawer-container>

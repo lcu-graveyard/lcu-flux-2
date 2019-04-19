@@ -1,9 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 
 import { jsPlumbToolkitIO } from 'jsplumbtoolkit';
-import { FluxConfig } from '../models/FluxConfig';
 import { FluxModule } from '../models/FluxModule';
 import { FluxStream } from '../models/FluxStream';
+import { FluxOutput } from '../models/FluxOutput';
 
 @Injectable({
   providedIn: 'root'
@@ -41,13 +41,8 @@ export class FluxParser {
 
     edges.forEach(function(item) {
       returnObj.Streams.push({
-        ID: item.data.id,
-        Description: item.data.description,
-        Order: item.data.order,
-        Transform: item.data.transform,
         InputModuleID: item.source.id,
-        OutputModuleID: item.target.id,
-        Name: item.data.label
+        OutputModuleID: item.target.id
       });
     });
 
@@ -336,10 +331,10 @@ export class FluxParser {
   //   return returnObj;
   // }
 
-  public ParseFlow(flow: FluxConfig, toolkit: any, params: any) {
-    flow.Modules.filter(function(item) {
+  public ParseFlow(output: FluxOutput, toolkit: any, params: any) {
+    output.Modules.filter((item) => {
       return !item.Deleted;
-    }).forEach(function(item) {
+    }).forEach((item) => {
       let jspItem: any;
       jspItem = item;
       jspItem.id = item.ID;
@@ -347,16 +342,16 @@ export class FluxParser {
       toolkit.addNode(jspItem);
     });
 
-    flow.Streams.forEach(function(item) {
+    output.Streams.forEach((item) => {
       toolkit.addEdge({
-        id: item.ID,
+        // id: item.ID,
         source: item.InputModuleID,
         target: item.OutputModuleID,
-        description: item.Description,
-        order: item.Order,
-        transform: item.Transform,
+        // description: item.Description,
+        // order: item.Order,
+        // transform: item.Transform,
         data: {
-          label: item.Name,
+          label: '',//item.Name,
           type: 'connection'
         }
       });

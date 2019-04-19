@@ -1,7 +1,7 @@
-import { FluxConfig } from './FluxConfig';
+import { FluxOutput } from './FluxOutput';
 
 export class FluxActionEvent {
   public Action: string;
 
-  public Config: FluxConfig;
+  public Output: FluxOutput;
 }

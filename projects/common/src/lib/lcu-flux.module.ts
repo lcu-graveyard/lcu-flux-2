@@ -10,7 +10,8 @@ import {
   MatTooltipModule,
   MatIconModule,
   MatProgressSpinnerModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatCardModule
 } from '@angular/material';
 import { FathymSharedModule } from '@lcu-ide/common';
 import { FluxComponent } from './controls/flux/flux.component';
@@ -20,9 +21,18 @@ import { FluxSurfaceComponent } from './controls/flux-surface/flux-surface.compo
 import { jsPlumbToolkitModule } from './jsplumb/jsplumbToolkit.module';
 import { FluxParser } from './svc/flux-parser';
 import { FluxModuleComponent } from './controls/flux-module/flux-module.component';
+import { FluxActionComponent } from './controls/flux-action/flux-action.component';
+import { FluxModulesBankComponent } from './controls/flux-modules-bank/flux-modules-bank.component';
 
 @NgModule({
-  declarations: [FluxComponent, FluxElementComponent, FluxSurfaceComponent, FluxModuleComponent],
+  declarations: [
+    FluxComponent,
+    FluxElementComponent,
+    FluxSurfaceComponent,
+    FluxModuleComponent,
+    FluxActionComponent,
+    FluxModulesBankComponent
+  ],
   imports: [
     FathymSharedModule,
     BrowserModule,
@@ -32,6 +42,7 @@ import { FluxModuleComponent } from './controls/flux-module/flux-module.componen
     jsPlumbToolkitModule.forRoot(),
     FlexLayoutModule,
     MatButtonModule,
+    MatCardModule,
     MatIconModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
@@ -40,8 +51,15 @@ import { FluxModuleComponent } from './controls/flux-module/flux-module.componen
     MatToolbarModule,
     MatTooltipModule
   ],
-  exports: [FluxComponent, FluxElementComponent, FluxSurfaceComponent, FluxModuleComponent],
-  entryComponents: [FluxComponent, FluxElementComponent, FluxSurfaceComponent, FluxModuleComponent],
+  exports: [FluxComponent, FluxElementComponent, FluxSurfaceComponent, FluxModuleComponent, FluxActionComponent, FluxModulesBankComponent],
+  entryComponents: [
+    FluxComponent,
+    FluxElementComponent,
+    FluxSurfaceComponent,
+    FluxModuleComponent,
+    FluxActionComponent,
+    FluxModulesBankComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class LcuFluxModule {

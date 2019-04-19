@@ -40,10 +40,6 @@ export class FluxModuleComponent implements OnInit {
       'message',
       ev => {
         const data = this.shouldHandle('IoTFlow', ev);
-
-        if (data) {
-          this.handleSettingsMessage(data);
-        }
       },
       false
     );
@@ -135,34 +131,6 @@ export class FluxModuleComponent implements OnInit {
   }
 
   // 	Helpers
-  protected handleSettingsMessage(settings: any) {
-    this.obj.Settings = settings;
-
-    const successObj = { confirm: true };
-
-    // this.dialog.openDialogs.forEach(function(modal) {
-    //   modal.close(successObj);
-    // });
-
-    // if (this.mgrDialog)
-    //    this.mgrDialog.close(successObj);
-    // else
-    // {
-    //    this.dialog._openDialogs.forEach(function (modal) {
-    //        modal.close(successObj);
-    //    });
-    // }
-
-    window.postMessage(
-      {
-        _type: 'SettingsUpdated',
-        Settings: settings,
-        NodeID: this.obj.ID
-      },
-      '*'
-    );
-  }
-
   protected newToken() {
     return Guid.Create().ToString();
   }

@@ -1,13 +1,13 @@
+import { Icon } from '@lcu-ide/common';
+
 export class FluxModuleOption {
   public Category: string;
 
   public Description: string;
 
-  public Icon: string;
+  public Icon: Icon;
 
-  public IconSet: string;
-
-  public Lookup: string;
+  public ModuleType: string;
 
   public Name: string;
 }

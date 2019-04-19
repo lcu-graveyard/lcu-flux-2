@@ -1,3 +1,5 @@
+import { Icon } from '@lcu-ide/common';
+
 export class FluxAction {
   public Action: string;
 

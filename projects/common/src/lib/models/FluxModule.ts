@@ -4,13 +4,19 @@ import { FluxModuleOption } from './FluxModuleOption';
 export class FluxModule {
   public Actions?: FluxAction[];
 
+  public ControlType: string;
+
   public Deleted: boolean;
+
+  public Height: number;
+
+  public ID: string;
 
   public Left: number;
 
-  public Top: number;
+  public ModuleType: string;
 
-  public Settings: any;
+  public Shape: string;
 
   public Status: any;
 
@@ -18,13 +24,7 @@ export class FluxModule {
 
   public Token: string;
 
-  public ControlType: string;
-
-  public Height: number;
-
-  public ModuleType: string;
-
-  public Shape: string;
+  public Top: number;
 
   public Width: number;
 }

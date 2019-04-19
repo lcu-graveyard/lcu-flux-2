@@ -13,14 +13,6 @@
       <i class="fa fa-check fa-3x"></i>
     </div>
     <div
-      *ngIf="obj.Settings && obj.Settings.HasErrors"
-      title="Module has configuration errors"
-      class="node-action node-config-status"
-      style="color:red;"
-    >
-      <i class="fa fa-exclamation-circle fa-3x"></i>
-    </div>
-    <div
       *ngIf="!obj.Status || (obj.Status && obj.Status.Code != 0 && obj.Status.Code != 100 && obj.Status.Code != -100)"
       title="Provisioned resource not located"
       class="node-action node-status"

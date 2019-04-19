@@ -1,12 +1,14 @@
 import { Component, EventEmitter, OnInit, Input, Output, ViewChild } from '@angular/core';
 import { FluxAction } from '../../models/FluxAction';
 import { FluxActionEvent } from '../../models/FluxActionEvent';
-import { FluxConfig } from '../../models/FluxConfig';
 import { FluxModule } from '../../models/FluxModule';
 import { MatDrawer } from '@angular/material';
 import { FluxSurfaceComponent } from '../flux-surface/flux-surface.component';
 import { jsPlumbToolkitComponent } from '../../jsplumb/toolkit/toolkit.component';
 import { FluxLayout } from '../../models/FluxLayout';
+import { FluxModuleOption } from '../../models/FluxModuleOption';
+import { FluxStream } from '../../models/FluxStream';
+import { FluxModulesValidation } from './../../models/FluxModulesValidation';
 
 @Component({
   selector: 'lcu-flux',
@@ -23,14 +25,11 @@ export class FluxComponent implements OnInit {
   @Output('action')
   public Action: EventEmitter<FluxActionEvent>;
 
-  @Input('config')
-  public Config: FluxConfig;
-
   @ViewChild(MatDrawer)
   public Drawer: MatDrawer;
 
-  @Input('drawer-open')
-  public DrawerOpen: boolean;
+  @Input('modules-open')
+  public ModulesOpen: boolean;
 
   public FluxLayout: FluxLayout;
 
@@ -40,23 +39,32 @@ export class FluxComponent implements OnInit {
   @Input('modules')
   public Modules: FluxModule[];
 
+  @Input('options')
+  public Options: FluxModuleOption[];
+
+  @Input('streams')
+  public Streams: FluxStream[];
+
   @ViewChild(FluxSurfaceComponent)
   public Surface: FluxSurfaceComponent;
 
   @Input('toggle-action')
   public ToggleAction: FluxAction;
 
+  @Input('validation')
+  public Validation: FluxModulesValidation;
+
   //  Constructors
   constructor() {
     this.Action = new EventEmitter();
 
-    this.DrawerOpen = true;
+    this.ModulesOpen = true;
 
     this.Loading = false;
 
     this.ToggleAction = {
       Action: '$drawer',
-      Icon: 'menu',
+      Icon: { Icon: 'menu', IconSet: null },
       Order: 0,
       Text: 'Toggle Drawer'
     };
@@ -81,7 +89,7 @@ export class FluxComponent implements OnInit {
 
       this.Action.emit({
         Action: action.Action,
-        Config: this.retrieveFluxConfig()
+        Output: null//TODO
       });
     }
   }
@@ -89,10 +97,6 @@ export class FluxComponent implements OnInit {
   //  Helpers
   protected drawerAction() {
     this.Drawer.toggle();
-  }
-
-  protected retrieveFluxConfig(): FluxConfig {
-    return <FluxConfig>{};
   }
 
   protected relayoutAction() {
