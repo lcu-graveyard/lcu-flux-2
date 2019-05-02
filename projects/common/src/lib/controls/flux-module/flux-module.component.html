@@ -1,4 +1,26 @@
-<div [style.width]="Abs(obj.Width) + 'px'" [style.height]="Abs(obj.Height) + 'px'" class="flowchart-object flowchart-{{ obj.ModuleType }}">
+<div [style.width]="AbsPX(Module.Width)" [style.height]="AbsPX(Module.Height)" class="flowchart-object" *ngIf="Module">
+  <!-- <mat-card class="outer">
+      <mat-card>
+          {{ Module.Text }}
+      </mat-card>
+  </mat-card> -->
+
+
+  <svg [attr.width]="Abs(Module.Width)" [attr.height]="Abs(Module.Height)">
+      <rect [attr.x]="0" [attr.y]="0" [attr.width]="Abs(Module.Width)" [attr.height]="Abs(Module.Height)" class="outer" />
+      <rect [attr.x]="10" [attr.y]="10" [attr.width]="Abs(Module.Width - 20)" [attr.height]="Abs(Module.Height - 20)" class="inner" />
+
+      <text text-anchor="middle" [attr.x]="Abs(Module.Width) / 2" [attr.y]="Abs(Module.Height) / 2" dominant-baseline="central">
+        {{ Module.Text }}
+      </text>
+    </svg>
+
+  <jtk-target port-type="target"></jtk-target>
+
+  <jtk-source port-type="source" filter=".outer"></jtk-source>
+</div>
+
+<!-- <div [style.width]="Abs(obj.Width) + 'px'" [style.height]="Abs(obj.Height) + 'px'" class="flowchart-object flowchart-{{ obj.ModuleType }}">
   <div>
     <div title="Configure Node" class="node-configure node-action" (click)="OpenFlowManager(obj)">
       <i class="fa fa-gear"></i>
@@ -28,7 +50,6 @@
     </div>
 
     <svg [attr.width]="Abs(obj.Width)" [attr.height]="Abs(obj.Height)" [fxShow]="obj.Shape == ModuleShape.Rectangle">
-      <!---->
       <rect [attr.x]="0" [attr.y]="0" [attr.width]="Abs(obj.Width)" [attr.height]="Abs(obj.Height)" class="outer" />
       <rect [attr.x]="10" [attr.y]="10" [attr.width]="Abs(obj.Width - 20)" [attr.height]="Abs(obj.Height - 20)" class="inner" />
 
@@ -114,4 +135,4 @@
   <jtk-target port-type="target"></jtk-target>
 
   <jtk-source port-type="source" filter=".outer"></jtk-source>
-</div>
+</div> -->

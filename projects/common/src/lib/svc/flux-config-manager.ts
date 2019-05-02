@@ -12,9 +12,9 @@ export class FluxConfigManager {
 
   public Connector: {
     Click: EventEmitter<any>;
-    BeforeStart: EventEmitter<{ Node: any; EdgeType: string }>;
-    Before: EventEmitter<{ Source: any; Target: any; EdgeData: any }>;
-    BeforeStartDetach: EventEmitter<{ Source: any; Target: any; Edge: any }>;
+    BeforeStart: (source: any, edgeType: string) => void;
+    Before: (source: any, target: any, edgeData: any) => void;
+    BeforeStartDetach: (source: any, target: any, edge: any) => void;
   };
 
   public CreateNode: EventEmitter<{ Type: string; Data: any; Callback: Function }>;
@@ -37,9 +37,9 @@ export class FluxConfigManager {
 
     this.Connector = {
       Click: new EventEmitter(),
-      BeforeStart: new EventEmitter(),
-      Before: new EventEmitter(),
-      BeforeStartDetach: new EventEmitter()
+      BeforeStart: null,
+      Before: null,
+      BeforeStartDetach: null
     };
 
     this.CreateNode = new EventEmitter();
@@ -58,21 +58,21 @@ export class FluxConfigManager {
   }
 
   // 	API Methods
-  public Configure(layoutFlow: string, nodeFactory: Function): Observable<FluxLayout> {
+  public Configure(layoutFlow: string): Observable<FluxLayout> {
     return Observable.create(obs => {
-      obs.next(this.buildFluxLayout(layoutFlow, nodeFactory));
+      obs.next(this.buildFluxLayout(layoutFlow));
 
       obs.complete();
     });
   }
 
   // 	Helpers
-  protected buildFluxLayout(layoutFlow: string, nodeFactory: Function): FluxLayout {
+  protected buildFluxLayout(layoutFlow: string): FluxLayout {
     return {
       View: this.buildFluxLayoutView(),
       Palette: this.buildFluxLayoutPalette(),
       Renderer: this.buildFluxLayoutRenderer(layoutFlow),
-      Toolkit: this.buildFluxLayoutToolkit(nodeFactory)
+      Toolkit: this.buildFluxLayoutToolkit()
     };
   }
 
@@ -81,7 +81,9 @@ export class FluxConfigManager {
       nodes: {
         selectable: {
           events: {
-            tap: (params: any) => this.ToggleSelection.emit(params)
+            tap: (params: any) => {
+              this.ToggleSelection.emit(params);
+            }
           }
         }
       },
@@ -95,7 +97,9 @@ export class FluxConfigManager {
           paintStyle: { strokeWidth: 2, stroke: '#f76258', outlineWidth: 3, outlineStroke: 'transparent' },
           hoverPaintStyle: { strokeWidth: 2, stroke: 'rgb(67,67,67)' }, // hover paint style for this edge type.
           events: {
-            dblclick: (params: any) => this.Edge.DoubleClick.emit(params)
+            dblclick: (params: any) => {
+              this.Edge.DoubleClick.emit(params);
+            }
           },
           overlays: [['Arrow', { location: 1, width: 10, length: 10 }], ['Arrow', { location: 0.3, width: 10, length: 10 }]]
         },
@@ -117,7 +121,9 @@ export class FluxConfigManager {
           paintStyle: { fill: '#f76258' }, // the endpoint's appearance
           hoverPaintStyle: { fill: '#434343' }, // appearance when mouse hovering on endpoint or connection,
           events: {
-            click: (params: any) => this.Connector.Click.emit(params)
+            click: (params: any) => {
+              this.Connector.Click.emit(params);
+            }
           }
         },
         source: {
@@ -128,7 +134,9 @@ export class FluxConfigManager {
           anchor: 'Right',
           maxConnections: -1,
           events: {
-            click: (params: any) => this.Connector.Click.emit(params)
+            click: (params: any) => {
+              this.Connector.Click.emit(params);
+            }
           },
           isSource: true,
           isTarget: false
@@ -143,7 +151,9 @@ export class FluxConfigManager {
           isSource: false,
           isTarget: true,
           events: {
-            click: (params: any) => this.Connector.Click.emit(params)
+            click: (params: any) => {
+              this.Connector.Click.emit(params);
+            }
           }
         }
       }
@@ -160,11 +170,21 @@ export class FluxConfigManager {
         type: layoutFlow
       },
       events: {
-        canvasClick: (e: Event) => this.CanvasClick.emit(e),
-        objectRepainted: () => this.Repainted.emit(<Status>{ Code: 0, Message: 'Success' }),
-        edgeAdded: (params: any) => this.Edge.Added.emit(params),
-        edgeTarget: (edge: any, oldTarget: any, newTarget: any) => this.Edge.Target.emit({ Edge: edge, Old: oldTarget, New: newTarget }),
-        modeChanged: (mode: string) => this.ModeChanged.emit(mode)
+        canvasClick: (e: Event) => {
+          this.CanvasClick.emit(e);
+        },
+        objectRepainted: () => {
+          this.Repainted.emit(<Status>{ Code: 0, Message: 'Success' });
+        },
+        edgeAdded: (params: any) => {
+          this.Edge.Added.emit(params);
+        },
+        edgeTarget: (edge: any, oldTarget: any, newTarget: any) => {
+          this.Edge.Target.emit({ Edge: edge, Old: oldTarget, New: newTarget });
+        },
+        modeChanged: (mode: string) => {
+          this.ModeChanged.emit(mode);
+        }
       },
       lassoInvert: false,
       elementsDroppable: true,
@@ -178,20 +198,29 @@ export class FluxConfigManager {
     };
   }
 
-  protected buildFluxLayoutToolkit(nodeFactory: Function): any {
+  protected buildFluxLayoutToolkit(): any {
     return {
-      nodeFactory: (type: string, data: any, callback: Function) => {
-        const nodeEvent = { Type: type, Data: data, Callback: callback, Factory: nodeFactory };
-
-        this.CreateNode.emit(nodeEvent);
-
-        return nodeEvent.Factory(type, data, callback);
+      beforeConnect: (source: any, target: any, edgeData: any) => {
+        if (this.Connector.Before) {
+          return this.Connector.Before(source, target, edgeData);
+        } else {
+          return true;
+        }
       },
-      beforeStartConnect: (node: any, edgeType: string) => this.Connector.BeforeStart.emit({ Node: node, EdgeType: edgeType }),
-      beforeConnect: (source: any, target: any, edgeData: any) =>
-        this.Connector.Before.emit({ Source: source, Target: target, EdgeData: edgeData }),
-      beforeStartDetach: (source: any, target: any, edge: any) =>
-        this.Connector.BeforeStartDetach.emit({ Source: source, Target: target, Edge: edge })
+      beforeStartConnect: (source: any, edgeType: string) => {
+        if (this.Connector.BeforeStart) {
+          return this.Connector.BeforeStart(source, edgeType);
+        } else {
+          return true;
+        }
+      },
+      beforeStartDetach: (source: any, target: any, edge: any) => {
+        if (this.Connector.BeforeStartDetach) {
+          return this.Connector.BeforeStartDetach(source, target, edge);
+        } else {
+          return true;
+        }
+      }
     };
   }
 }

@@ -36,7 +36,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
     min-height: 100%;
     overflow: auto;
     background-size: cover;
-    background-image: url("https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg");
+    background-image: url('https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg');
     background-position: 50% 100%;
     background-size: initial;
     background-position: initial;
@@ -47,7 +47,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
     overflow: hidden;
 
     &::before {
-      content: " ";
+      content: ' ';
       position: fixed;
       width: 100%;
       height: 100%;
@@ -57,7 +57,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
       z-index: -1;
       background-size: cover;
       background-position: 50% 100%;
-      background-image: url("https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg");
+      background-image: url('https://fathym.com/wp-content/uploads/2016/07/fathym_splash.jpg');
     }
 
     .mat-list {
@@ -391,7 +391,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
       }
     }
 
-    .flow {
+    .flux {
       height: 100%;
       user-select: none;
 
@@ -478,7 +478,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         margin-top: 4rem;
       }
 
-      .flow-options {
+      .flux-options {
         // position: absolute !important;
         // top: 10px;
         // right: 25px;
@@ -489,7 +489,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         height: 100%;
         position: relative;
 
-        .flow-layout-behavior {
+        .flux-layout-behavior {
           height: 100%;
           position: relative;
         }
@@ -507,7 +507,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         }
       }
 
-      .flow-options-menu {
+      .flux-options-menu {
         height: 100%;
         background-color: mat-color($accent, 100);
         text-align: left;
@@ -551,12 +551,12 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         }
       }
 
-      .flow-action-icons {
+      .flux-action-icons {
         text-align: center;
         padding: 10px;
       }
 
-      .flow-options-menu-group {
+      .flux-options-menu-group {
         text-align: left;
         margin: 0px 8px;
         max-height: 0px;
@@ -577,7 +577,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         }
       }
 
-      .flow-options-toggle {
+      .flux-options-toggle {
         position: absolute !important;
         top: 50px;
         right: 50px;
@@ -673,7 +673,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
       margin-left: 0;
     }
 
-    .flow-module-add-function {
+    .flux-module-add-function {
       position: absolute !important;
       right: 50px;
       z-index: 200;
@@ -739,7 +739,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
             margin: 0.5rem;
           }
 
-          .flow-module-add-schema {
+          .flux-module-add-schema {
             position: absolute !important;
             top: 80px;
             right: 50px;
@@ -747,7 +747,7 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
             opacity: 0.7;
           }
 
-          .flow-module-schema-options {
+          .flux-module-schema-options {
             position: absolute !important;
             top: 80px;
             left: 555px;
@@ -763,6 +763,377 @@ $forge-app-theme: mat-light-theme($forge-app-primary, $forge-app-accent, $forge-
         }
       }
     }
+  }
+
+  /* ---------------------------------------------------------------------------------------------------- */
+  /* --- page structure --------------------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------------------------------------- */
+
+  body {
+    background-color: #fff;
+    color: #434343;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    height: 100%;
+    padding: 0;
+  }
+
+  .jtk-bootstrap {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jtk-bootstrap .jtk-page-container {
+    display: flex;
+    width: 100vw;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .jtk-bootstrap .jtk-container {
+    width: 60%;
+    max-width: 800px;
+  }
+
+  .jtk-bootstrap-wide .jtk-container {
+    width: 80%;
+    max-width: 1187px;
+  }
+
+  .jtk-demo-main {
+    position: relative;
+    margin-top: 98px;
+  }
+
+  .jtk-demo-main .description {
+    font-size: 13px;
+    margin-top: 25px;
+    padding: 13px;
+    margin-bottom: 22px;
+    background-color: #f4f5ef;
+  }
+
+  .jtk-demo-main .description li {
+    list-style-type: disc !important;
+  }
+
+  .jtk-demo-canvas {
+    height: 550px;
+    max-height: 700px;
+  }
+
+  .canvas-wide {
+    margin-left: 0;
+  }
+
+  .miniview {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 100;
+  }
+
+  .jtk-demo-dataset {
+    text-align: left;
+    max-height: 600px;
+    overflow: auto;
+  }
+
+  .demo-title {
+    float: left;
+    font-size: 18px;
+  }
+
+  .controls {
+    top: 25px;
+    color: #fff;
+    margin-right: 10px;
+    position: absolute;
+    left: 25px;
+    z-index: 1;
+  }
+
+  .controls i {
+    background-color: #3e7e9c;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0;
+    padding: 4px;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  /* ------------------------ node palette -------------------- */
+
+  .sidebar {
+    margin: 0;
+    padding: 0;
+    padding-top: 7px;
+    padding-right: 10px;
+    width: 100%;
+    float: left;
+    text-align: center;
+    background-color: #84acb3;
+  }
+
+  .sidebar ul li {
+    float: left;
+    border-radius: 11px;
+    color: #f7ebca;
+    cursor: move;
+    margin-bottom: 10px;
+    margin-left: 6px;
+    padding: 8px;
+  }
+
+  .sidebar ul {
+    width: 100%;
+    padding: 0;
+  }
+
+  .sidebar i {
+    float: left;
+  }
+
+  @media (max-width: 600px) {
+    .sidebar {
+      float: none;
+      height: 55px;
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .sidebar ul li {
+      display: inline-block;
+      margin-top: 7px;
+      width: 67px;
+    }
+    .jtk-demo-canvas {
+      margin-left: 0;
+      margin-top: 10px;
+      height: 364px;
+    }
+  }
+
+  /* ---------------------------------------------------------------------------------------------------- */
+  /* --- jsPlumb setup ---------------------------------------------------------------------------------- */
+  /* ---------------------------------------------------------------------------------------------------- */
+
+  .jtk-connector {
+    z-index: 9;
+  }
+
+  .jtk-endpoint {
+    z-index: 12;
+    opacity: 0.8;
+    cursor: pointer;
+  }
+
+  .jtk-overlay {
+    background-color: transparent;
+    color: #fff;
+    font-weight: 400;
+    padding: 4px;
+    z-index: 10;
+  }
+
+  .jtk-overlay.jtk-hover {
+    color: #434343;
+  }
+
+  path {
+    cursor: pointer;
+  }
+
+  .delete {
+    padding: 2px;
+    cursor: pointer;
+    float: left;
+    font-size: 10px;
+    line-height: 20px;
+  }
+
+  .add,
+  .edit {
+    cursor: pointer;
+    float: right;
+    font-size: 10px;
+    line-height: 20px;
+    margin-right: 2px;
+    padding: 2px;
+  }
+
+  .edit:hover {
+    color: #ff8000;
+  }
+
+  .selected-mode {
+    color: #e4f013;
+  }
+
+  .connect {
+    width: 10px;
+    height: 10px;
+    background-color: #f76258;
+    position: absolute;
+    bottom: 13px;
+    right: 5px;
+  }
+
+  /* header styles */
+
+  .demo-links {
+    position: fixed;
+    right: 0;
+    top: 57px;
+    font-size: 11px;
+    background-color: white;
+    opacity: 0.8;
+    padding-right: 10px;
+    padding-left: 5px;
+    text-transform: uppercase;
+    z-index: 100001;
+  }
+
+  .demo-links div {
+    display: inline;
+    margin-right: 7px;
+    margin-left: 7px;
+  }
+
+  .demo-links i {
+    padding: 4px;
+  }
+
+  /*
+.navbar-top {
+  background-color: #3c565d;
+  border:none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.navbar-nav > li > a {
+  border: none;
+  color: #FFF;
+  padding: 6px 10px;
+  text-decoration: none;
+}
+
+.social-nav {
+  color: #FFF;
+  float: right;
+  font-size: 22px;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent;
+  color: #cdcc73;
+  text-decoration: none;
+}
+*/
+
+  /* ------------------------ dialogs ----------------------------*/
+
+  /* ----------------------- drag/drop interactions -------------- */
+  .drop-hover {
+    background-color: #fccccc !important;
+  }
+
+  /* ----------------------- node styles ------------------------- */
+
+  .flowchart-object {
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+    z-index: 10;
+    background: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .flowchart-object svg {
+    position: absolute;
+    stroke: none;
+    fill: #234b5e;
+    left: 0px;
+    top: 0px;
+  }
+
+  .flowchart-object text {
+    stroke: none;
+    fill: #f7ebca;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  .flowchart-object .node-action {
+    display: none;
+    position: absolute;
+    top: 24px;
+    cursor: pointer;
+    color: white;
+    z-index: 10000;
+  }
+
+  .flowchart-object .drag-start {
+    cursor: pointer;
+  }
+
+  .flowchart-object .node-action:hover {
+    color: #ff8000;
+  }
+
+  .flowchart-object .node-edit {
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -20px;
+  }
+
+  .flowchart-object .node-delete {
+    left: 50%;
+    margin-left: 10px;
+    margin-top: -20px;
+  }
+
+  .flowchart-object.jtk-surface-selected-element .node-action {
+    display: block;
+  }
+
+  .outer {
+    fill: gray;
+    opacity: 0.3;
+    cursor: pointer;
+  }
+
+  .flowchart-object:hover .outer {
+    opacity: 0.7;
+  }
+
+  .inner {
+    cursor: move !important;
+  }
+
+  .connection-drop svg {
+    fill: #ccc;
+  }
+
+  .connection-drop text {
+    fill: black;
+  }
+
+  .jtk-surface {
+    height: 550px !important;
+    max-height: 700px !important;
   }
 }
 
@@ -786,7 +1157,7 @@ body {
 
   .mat-list-item {
     &.active {
-      background-color: transparentize($color: #000000, $amount: .95)
+      background-color: transparentize($color: #000000, $amount: 0.95);
     }
   }
 }

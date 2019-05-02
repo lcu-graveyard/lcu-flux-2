@@ -1,12 +1,10 @@
+import { Status } from '@lcu-ide/common';
 import { FluxAction } from './FluxAction';
-import { FluxModuleOption } from './FluxModuleOption';
 
 export class FluxModule {
   public Actions?: FluxAction[];
 
   public ControlType: string;
-
-  public Deleted: boolean;
 
   public Height: number;
 
@@ -18,11 +16,9 @@ export class FluxModule {
 
   public Shape: string;
 
-  public Status: any;
+  public Status: Status;
 
   public Text: string;
-
-  public Token: string;
 
   public Top: number;
 

@@ -1,3 +1,11 @@
-<lcu-flux [options]="Options" [actions]="Actions" (action)="Action($event)" [loading]="Loading.Value">
-
+<lcu-flux
+  flux="flux" surface="fluxSurface"
+  [actions]="Actions"
+  (action)="Action($event)"
+  [loading]="Loading.Value"
+  [modules]="Modules"
+  [options]="Options"
+  [streams]="Streams"
+  [validation]="Validation"
+>
 </lcu-flux>

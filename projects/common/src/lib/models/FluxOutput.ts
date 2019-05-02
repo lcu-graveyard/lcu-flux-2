@@ -7,6 +7,4 @@ export class FluxOutput {
   public Modules: FluxModule[];
 
   public Streams: FluxStream[];
-
-  [key: string]: any;
 }

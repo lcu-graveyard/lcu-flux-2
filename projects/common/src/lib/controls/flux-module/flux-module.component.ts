@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Guid } from '@lcu-ide/common';
 import { jsPlumb, jsPlumbToolkit, Surface } from 'jsplumbtoolkit';
 import { FluxModule } from '../../models/FluxModule';
@@ -10,44 +10,46 @@ import { FluxModule } from '../../models/FluxModule';
 })
 export class FluxModuleComponent implements OnInit {
   // 	Fields
-  public obj: FluxModule;
+  public Module: FluxModule;
 
-  public ModuleShape: any;
+  public Surface: Surface;
 
-  protected surface: Surface;
-
-  protected token: string;
-
-  protected toolkit: jsPlumbToolkit;
+  public Toolkit: jsPlumbToolkit;
 
   // 	Properties
 
   // 	Constructors
-  constructor() {
-    this.token = this.newToken();
-
-    this.ModuleShape = '';
-  }
+  constructor(protected el: ElementRef) {}
 
   // 	Runtime
 
   public ngOnInit() {
-    this.obj.Token = this.token;
-
-    this.toolkit.updateNode(this.toolkit.getNode(this.obj.ID), this.obj);
-
-    window.addEventListener(
-      'message',
-      ev => {
-        const data = this.shouldHandle('IoTFlow', ev);
-      },
-      false
-    );
+    // window.addEventListener(
+    //   'message',
+    //   ev => {
+    //     const data = this.shouldHandle('IoTFlow', ev);
+    //   },
+    //   false
+    // );
   }
 
   // 	API Methods
   public Abs(input: number) {
     return Math.abs(input);
+  }
+
+  public AbsPX(input: number) {
+    return `${this.Abs(input)}px`;
+  }
+
+  public GetNativeElement() {
+    return this.el.nativeElement;
+  }
+
+  public UpdateToolkit() {
+    if (this.Toolkit) {
+      this.Toolkit.updateNode(this.Toolkit.getNode(this.Module.ID), this.Module);
+    }
   }
 
   public OpenFlowManager(node: any) {
@@ -131,19 +133,4 @@ export class FluxModuleComponent implements OnInit {
   }
 
   // 	Helpers
-  protected newToken() {
-    return Guid.Create().ToString();
-  }
-
-  protected shouldHandle(app: string, ev: MessageEvent) {
-    try {
-      const data = ev.data ? JSON.parse(ev.data) : null;
-
-      const handle = data && data._app === app && data._token === this.token;
-
-      return handle ? data : null;
-    } catch (e) {
-      return null;
-    }
-  }
 }

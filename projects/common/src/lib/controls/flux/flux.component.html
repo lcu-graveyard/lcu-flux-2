@@ -2,21 +2,47 @@
   <mat-drawer-content>
     <lcu-flux-action
       [action]="ToggleAction"
-      (on-action)="EmitAction(ToggleAction)"
+      (action)="EmitAction(ToggleAction)"
       class="drawer-toggle drawer-toggle-{{ ToggleAction.Order }}"
       *ngIf="ToggleAction"
       [matTooltip]="ToggleAction.Text"
     >
     </lcu-flux-action>
 
-    <!-- <lcu-flux-surface class="flux-surface" [modules]="Modules" [config]="Config"> </lcu-flux-surface> -->
+    <lcu-flux-surface
+      class="flux-surface"
+      [modules]="Modules"
+      [streams]="Streams"
+      [validation]="Validation"
+      [flux]="FluxID"
+      [surface]="SurfaceID"
+    >
+    </lcu-flux-surface>
+
+<!--
+    <span class="flux-surface-controls">
+      <a mat-icon-button (click)="SetPanMode()">
+        <mat-icon fontSet="fa" fontIcon="fa-arrows-alt" title="Pan Mode"></mat-icon>
+      </a>
+
+      <a mat-icon-button (click)="SetSelectMode()">
+        <mat-icon fontSet="fa" fontIcon="fa-pencil-alt" title="Select Mode"></mat-icon>
+      </a>
+
+      <a mat-icon-button (click)="ZoomToFit()">
+        <mat-icon fontSet="fa" fontIcon="fa-home" title="Zoom To Fit"></mat-icon>
+      </a>
+    </span>
+     -->
+
+    <div id="flux-miniview" class="miniview"></div>
   </mat-drawer-content>
 
   <mat-drawer mode="side" [opened]="ModulesOpen" position="end" #drawer>
     <mat-toolbar>
       <ng-container *ngIf="!Loading">
         <span class="flux-actions">
-          <lcu-flux-action [action]="action" (on-action)="EmitAction(action)" class="flux-action" *ngFor="let action of Actions">
+          <lcu-flux-action [action]="action" (action)="EmitAction(action)" class="flux-action" *ngFor="let action of Actions">
           </lcu-flux-action>
         </span>
       </ng-container>

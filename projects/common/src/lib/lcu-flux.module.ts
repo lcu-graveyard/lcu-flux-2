@@ -23,6 +23,7 @@ import { FluxParser } from './svc/flux-parser';
 import { FluxModuleComponent } from './controls/flux-module/flux-module.component';
 import { FluxActionComponent } from './controls/flux-action/flux-action.component';
 import { FluxModulesBankComponent } from './controls/flux-modules-bank/flux-modules-bank.component';
+import { LCUjsPlumbService } from './svc/lcu-jsplumb.service';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ export class LcuFluxModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: LcuFluxModule,
-      providers: [FluxParser]
+      providers: [FluxParser, LCUjsPlumbService]
     };
   }
 }

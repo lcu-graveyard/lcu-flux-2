@@ -205,7 +205,6 @@
             ],
             "styles": [
               "node_modules/jsplumbtoolkit/dist/css/jsplumbtoolkit-defaults.css",
-              "node_modules/jsplumbtoolkit/dist/css/jsplumbtoolkit-demo.css",
               "projects/demo/src/styles.scss"
             ],
             "scripts": [],

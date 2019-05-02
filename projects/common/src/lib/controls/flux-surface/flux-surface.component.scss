@@ -2,14 +2,6 @@
   display: flex;
 }
 
-.miniview {
-  position: absolute;
-  top: auto !important;
-  left: auto;
-  bottom: 2rem;
-  right: 2rem;
-}
-
 .flux-surface-controls {
   position: absolute;
   top: 2rem;
@@ -21,5 +13,6 @@
   .jtk-surface {
     height: 100% !important;
     width: 100% !important;
+    position: static;
   }
 }

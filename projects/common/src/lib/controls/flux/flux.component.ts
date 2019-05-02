@@ -1,21 +1,23 @@
-import { Component, EventEmitter, OnInit, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { FluxAction } from '../../models/FluxAction';
 import { FluxActionEvent } from '../../models/FluxActionEvent';
 import { FluxModule } from '../../models/FluxModule';
 import { MatDrawer } from '@angular/material';
 import { FluxSurfaceComponent } from '../flux-surface/flux-surface.component';
-import { jsPlumbToolkitComponent } from '../../jsplumb/toolkit/toolkit.component';
 import { FluxLayout } from '../../models/FluxLayout';
 import { FluxModuleOption } from '../../models/FluxModuleOption';
 import { FluxStream } from '../../models/FluxStream';
 import { FluxModulesValidation } from './../../models/FluxModulesValidation';
+import { LCUjsPlumbService } from '../../svc/lcu-jsplumb.service';
+import { FluxConfigManager } from '../../svc/flux-config-manager';
 
 @Component({
   selector: 'lcu-flux',
   templateUrl: './flux.component.html',
-  styleUrls: ['./flux.component.scss']
+  styleUrls: ['./flux.component.scss'],
+  providers: [FluxConfigManager]
 })
-export class FluxComponent implements OnInit {
+export class FluxComponent implements AfterViewInit, OnInit {
   //  Fields
 
   //  Properties
@@ -28,8 +30,8 @@ export class FluxComponent implements OnInit {
   @ViewChild(MatDrawer)
   public Drawer: MatDrawer;
 
-  @Input('modules-open')
-  public ModulesOpen: boolean;
+  @Input('flux')
+  public FluxID: string;
 
   public FluxLayout: FluxLayout;
 
@@ -38,6 +40,9 @@ export class FluxComponent implements OnInit {
 
   @Input('modules')
   public Modules: FluxModule[];
+
+  @Input('modules-open')
+  public ModulesOpen: boolean;
 
   @Input('options')
   public Options: FluxModuleOption[];
@@ -48,6 +53,9 @@ export class FluxComponent implements OnInit {
   @ViewChild(FluxSurfaceComponent)
   public Surface: FluxSurfaceComponent;
 
+  @Input('surface')
+  public SurfaceID: string;
+
   @Input('toggle-action')
   public ToggleAction: FluxAction;
 
@@ -55,7 +63,7 @@ export class FluxComponent implements OnInit {
   public Validation: FluxModulesValidation;
 
   //  Constructors
-  constructor() {
+  constructor(protected jsplumb: LCUjsPlumbService, protected el: ElementRef) {
     this.Action = new EventEmitter();
 
     this.ModulesOpen = true;
@@ -71,8 +79,11 @@ export class FluxComponent implements OnInit {
   }
 
   //  Life Cycle
-  public ngOnInit() {
+  public ngAfterViewInit() {
+    this.jsplumb.AddMiniview(this.SurfaceID, 'flux-miniview');
   }
+
+  public ngOnInit() {}
 
   //  API Methods
   public EmitAction(action: FluxAction) {
@@ -89,7 +100,7 @@ export class FluxComponent implements OnInit {
 
       this.Action.emit({
         Action: action.Action,
-        Output: null//TODO
+        Output: this.Surface.Export()
       });
     }
   }

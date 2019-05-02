@@ -4,6 +4,7 @@ import { jsPlumbToolkitIO } from 'jsplumbtoolkit';
 import { FluxModule } from '../models/FluxModule';
 import { FluxStream } from '../models/FluxStream';
 import { FluxOutput } from '../models/FluxOutput';
+import { FluxSurfaceComponent } from '../controls/flux-surface/flux-surface.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,40 +14,38 @@ export class FluxParser {
 
   // 	Constructors
   constructor() {
-    jsPlumbToolkitIO.parsers['fathymIO'] = this.ParseFlow;
-    jsPlumbToolkitIO.exporters['fathymIO'] = this.MapFlow;
+    jsPlumbToolkitIO.parsers['fathymIO'] = this.Parse;
+    jsPlumbToolkitIO.exporters['fathymIO'] = this.Map;
     // jsPlumbToolkitIO.parsers['fathymIOSchema'] = this.ParseSchemaFlow;
     // jsPlumbToolkitIO.exporters['fathymIOSchema'] = this.MapSchemaFlow;
   }
 
   // 	API Methods
-  public MapFlow(toolkit: any, params: any) {
+  public Map(toolkit: any, params: { surface: FluxSurfaceComponent}) {
     const nodes = toolkit.getNodes();
 
     const edges = toolkit.getAllEdges();
 
-    const returnObj = <{ Modules: FluxModule[]; Streams: FluxStream[] }>params.flow;
+    const output = <FluxOutput>{
+      Modules: [],
+      Streams: []
+    };
 
-    returnObj.Modules = [];
+    nodes.forEach((item) => {
+      item.data.ID = item.data.id;
+      delete item.data.id;
 
-    returnObj.Streams = [];
-
-    nodes.forEach(function(item) {
-      if (!item.data.Settings) {
-        item.data.Settings = { IsDeleted: false };
-      }
-
-      returnObj.Modules.push(item.data);
+      output.Modules.push(item.data);
     });
 
-    edges.forEach(function(item) {
-      returnObj.Streams.push({
+    edges.forEach((item) => {
+      output.Streams.push({
         InputModuleID: item.source.id,
         OutputModuleID: item.target.id
       });
     });
 
-    return returnObj;
+    return output;
   }
 
   // public MapSchemaFlow(toolkit: any, params: any) {
@@ -331,31 +330,33 @@ export class FluxParser {
   //   return returnObj;
   // }
 
-  public ParseFlow(output: FluxOutput, toolkit: any, params: any) {
-    output.Modules.filter((item) => {
-      return !item.Deleted;
-    }).forEach((item) => {
+  public Parse(output: FluxSurfaceComponent, toolkit: any, params: any) {
+    output.Modules.forEach((item) => {
       let jspItem: any;
       jspItem = item;
+
       jspItem.id = item.ID;
+      delete jspItem.ID;
 
       toolkit.addNode(jspItem);
     });
 
-    output.Streams.forEach((item) => {
-      toolkit.addEdge({
-        // id: item.ID,
-        source: item.InputModuleID,
-        target: item.OutputModuleID,
-        // description: item.Description,
-        // order: item.Order,
-        // transform: item.Transform,
-        data: {
-          label: '',//item.Name,
-          type: 'connection'
-        }
+    setTimeout(() => {
+      output.Streams.forEach((item) => {
+        toolkit.addEdge({
+          // id: item.ID,
+          source: item.InputModuleID,
+          target: item.OutputModuleID,
+          // description: item.Description,
+          // order: item.Order,
+          // transform: item.Transform,
+          data: {
+            label: '',//item.Name,
+            type: 'connection'
+          }
+        });
       });
-    });
+    }, 0);
   }
 
   // public ParseSchemaFlow(schemaFlow: any, toolkit: any, params: any) {

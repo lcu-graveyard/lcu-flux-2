@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { FluxAction, FluxActionEvent, FluxModule, FluxModuleOption } from '@lcu-ide/lcu-flux-common';
+import { FluxAction, FluxActionEvent, FluxModule, FluxModulesValidation, FluxModuleOption, FluxStream } from '@lcu-ide/lcu-flux-common';
 import { Loading, Status } from '@lcu-ide/common';
 
 @Component({
@@ -11,11 +11,15 @@ export class AppComponent implements OnInit {
   //  Properties
   public Actions: FluxAction[];
 
+  public Loading: Loading;
+
+  public Modules: FluxModule[];
+
   public Options: FluxModuleOption[];
 
-  public Config: any;
+  public Streams: FluxStream[];
 
-  public Loading: Loading;
+  public Validation: FluxModulesValidation;
 
   //  Constructors
   constructor() {
@@ -45,6 +49,35 @@ export class AppComponent implements OnInit {
         Action: 'back',
         Icon: { Icon: 'arrow_back' },
         Text: 'Back to Forge'
+      }
+    ];
+
+    this.Modules = [
+      {
+        Actions: [],
+        ControlType: 'Gate',
+        Height: 50,
+        ID: '1234',
+        Left: 50,
+        ModuleType: 'TestModule',
+        Shape: 'Circle',
+        Status: <Status>{ Code: 0, Message: 'Success' },
+        Text: 'Test',
+        Top: 150,
+        Width: 50
+      },
+      {
+        Actions: [],
+        ControlType: 'Gate',
+        Height: 50,
+        ID: '12345',
+        Left: 150,
+        ModuleType: 'TestModule',
+        Shape: 'Circle',
+        Status: <Status>{ Code: 0, Message: 'Success' },
+        Text: 'Test',
+        Top: 150,
+        Width: 150
       }
     ];
 
@@ -78,6 +111,28 @@ export class AppComponent implements OnInit {
         Name: 'Active Directory'
       }
     ];
+
+    this.Streams = [
+      {
+        InputModuleID: '1234',
+        OutputModuleID: '12345'
+      }
+    ];
+
+    this.Validation = {
+      Connection: {
+        Incoming: {
+          Limit: {},
+          Types: {}
+        },
+        Outgoing: {
+          Limit: {
+            'TestModule': 1
+          },
+          Types: {}
+        }
+      }
+    };
 
     // this.Modules = [
     //   {
@@ -123,103 +178,103 @@ export class AppComponent implements OnInit {
     //   },
     // ];
 
-    this.Config = {
-      Description: 'Test Flow Expanded',
-      Deleted: false,
-      Lookup: 'tst2',
-      Modules: [
-        // {
-        //   Deleted: false,
-        //   Left: -825,
-        //   Top: -121,
-        //   Settings: {
-        //     Description: 'Salesforce Input',
-        //     HubLookup: 'sf1',
-        //     Lookup: 'sf1',
-        //     _app: 'IoTFlow',
-        //     _token: 'ac4b170f-1121-4809-9393-cca94d29faac'
-        //   },
-        //   Text: 'Salesforce',
-        //   Active: true,
-        //   Lookup: 'Fathym.IoT.Flow.Modules.Core.Fabric.DeviceStream',
-        //   Catalog: 'Fathym.Core',
-        //   Category: 'Input',
-        //   ControlType: 'Gate',
-        //   Description: 'Connect your devices through a secure IoT Hub... manage, command, analyze, and optimize.',
-        //   Height: 200.0,
-        //   Icon: 'wifi_tethering',
-        //   IncomingConnectionLimit: -1,
-        //   IncomingConnectionTypes: ['Fathym.IoT.Flow.Modules.Core.Manager.Dev.DataEmulatorModuleManager'],
-        //   ModuleType: 'Fathym.IoT.Flow.Modules.Core.Manager.Input.DeviceStreamModuleManager',
-        //   Name: 'Salesforce',
-        //   OutgoingConnectionLimit: -1,
-        //   OutgoingConnectionTypes: [],
-        //   Shape: 'Rectangle',
-        //   Width: 200.0,
-        //   Visible: true,
-        //   ID: '530d344c-4bab-445b-8747-a048b8289060',
-        //   Token: null,
-        //   Status: null
-        // },
-        // {
-        //   Deleted: false,
-        //   Left: -518,
-        //   Top: 153,
-        //   Settings: {
-        //     Description: 'IRS Input',
-        //     HubLookup: 'irs',
-        //     Lookup: 'irs',
-        //     _app: 'IoTFlow',
-        //     _token: '04d73153-7eee-4d2f-b197-e62dda6e58fb'
-        //   },
-        //   Text: 'IRS',
-        //   Active: true,
-        //   Lookup: 'Fathym.IoT.Flow.Modules.Core.Fabric.DeviceStream',
-        //   Catalog: 'Fathym.Core',
-        //   Category: 'Input',
-        //   ControlType: 'Gate',
-        //   Description: 'Connect your devices through a secure IoT Hub... manage, command, analyze, and optimize.',
-        //   Height: 200.0,
-        //   Icon: 'wifi_tethering',
-        //   IncomingConnectionLimit: -1,
-        //   IncomingConnectionTypes: ['Fathym.IoT.Flow.Modules.Core.Manager.Dev.DataEmulatorModuleManager'],
-        //   ModuleType: 'Fathym.IoT.Flow.Modules.Core.Manager.Input.DeviceStreamModuleManager',
-        //   Name: 'IRS',
-        //   OutgoingConnectionLimit: -1,
-        //   OutgoingConnectionTypes: [],
-        //   Shape: 'Circle',
-        //   Width: 200.0,
-        //   Visible: true,
-        //   ID: '24bc247c-518b-4f89-9868-2752d2ebec3c',
-        //   Token: null,
-        //   Status: null
-        // }
-      ].filter(mdl => {
-        return ['b8c513aa-9471-439f-b70d-4fdf0b409b91', '436b0e7d-939a-4c1c-ac83-8f8a122d8ce5'].some(i => i === mdl.ID);
-      }),
-      Name: 'Test Flow Expanded',
-      Streams: [
-        // {
-        //   Description: null,
-        //   InputModuleID: 'b8c513aa-9471-439f-b70d-4fdf0b409b91',
-        //   Name: null,
-        //   Order: 0,
-        //   OutputModuleID: '436b0e7d-939a-4c1c-ac83-8f8a122d8ce5',
-        //   Transform: null,
-        //   ID: '00000000-0000-0000-0000-000000000000'
-        // },
-        // {
-        //   Description: null,
-        //   InputModuleID: 'be6039f7-6847-429a-b8be-1d34f2ce07ee',
-        //   Name: null,
-        //   Order: 0,
-        //   OutputModuleID: '0ab8dce3-a1a5-43c4-9e37-bba73a77aff3',
-        //   Transform: null,
-        //   ID: '00000000-0000-0000-0000-000000000000'
-        // }
-      ].slice(0, 1),
-      ID: '6784ddc5-e4d1-428e-aa3c-d488696c9fb7'
-    };
+    // this.Config = {
+    //   Description: 'Test Flow Expanded',
+    //   Deleted: false,
+    //   Lookup: 'tst2',
+    //   Modules: [
+    //     // {
+    //     //   Deleted: false,
+    //     //   Left: -825,
+    //     //   Top: -121,
+    //     //   Settings: {
+    //     //     Description: 'Salesforce Input',
+    //     //     HubLookup: 'sf1',
+    //     //     Lookup: 'sf1',
+    //     //     _app: 'IoTFlow',
+    //     //     _token: 'ac4b170f-1121-4809-9393-cca94d29faac'
+    //     //   },
+    //     //   Text: 'Salesforce',
+    //     //   Active: true,
+    //     //   Lookup: 'Fathym.IoT.Flow.Modules.Core.Fabric.DeviceStream',
+    //     //   Catalog: 'Fathym.Core',
+    //     //   Category: 'Input',
+    //     //   ControlType: 'Gate',
+    //     //   Description: 'Connect your devices through a secure IoT Hub... manage, command, analyze, and optimize.',
+    //     //   Height: 200.0,
+    //     //   Icon: 'wifi_tethering',
+    //     //   IncomingConnectionLimit: -1,
+    //     //   IncomingConnectionTypes: ['Fathym.IoT.Flow.Modules.Core.Manager.Dev.DataEmulatorModuleManager'],
+    //     //   ModuleType: 'Fathym.IoT.Flow.Modules.Core.Manager.Input.DeviceStreamModuleManager',
+    //     //   Name: 'Salesforce',
+    //     //   OutgoingConnectionLimit: -1,
+    //     //   OutgoingConnectionTypes: [],
+    //     //   Shape: 'Rectangle',
+    //     //   Width: 200.0,
+    //     //   Visible: true,
+    //     //   ID: '530d344c-4bab-445b-8747-a048b8289060',
+    //     //   Token: null,
+    //     //   Status: null
+    //     // },
+    //     // {
+    //     //   Deleted: false,
+    //     //   Left: -518,
+    //     //   Top: 153,
+    //     //   Settings: {
+    //     //     Description: 'IRS Input',
+    //     //     HubLookup: 'irs',
+    //     //     Lookup: 'irs',
+    //     //     _app: 'IoTFlow',
+    //     //     _token: '04d73153-7eee-4d2f-b197-e62dda6e58fb'
+    //     //   },
+    //     //   Text: 'IRS',
+    //     //   Active: true,
+    //     //   Lookup: 'Fathym.IoT.Flow.Modules.Core.Fabric.DeviceStream',
+    //     //   Catalog: 'Fathym.Core',
+    //     //   Category: 'Input',
+    //     //   ControlType: 'Gate',
+    //     //   Description: 'Connect your devices through a secure IoT Hub... manage, command, analyze, and optimize.',
+    //     //   Height: 200.0,
+    //     //   Icon: 'wifi_tethering',
+    //     //   IncomingConnectionLimit: -1,
+    //     //   IncomingConnectionTypes: ['Fathym.IoT.Flow.Modules.Core.Manager.Dev.DataEmulatorModuleManager'],
+    //     //   ModuleType: 'Fathym.IoT.Flow.Modules.Core.Manager.Input.DeviceStreamModuleManager',
+    //     //   Name: 'IRS',
+    //     //   OutgoingConnectionLimit: -1,
+    //     //   OutgoingConnectionTypes: [],
+    //     //   Shape: 'Circle',
+    //     //   Width: 200.0,
+    //     //   Visible: true,
+    //     //   ID: '24bc247c-518b-4f89-9868-2752d2ebec3c',
+    //     //   Token: null,
+    //     //   Status: null
+    //     // }
+    //   ].filter(mdl => {
+    //     return ['b8c513aa-9471-439f-b70d-4fdf0b409b91', '436b0e7d-939a-4c1c-ac83-8f8a122d8ce5'].some(i => i === mdl.ID);
+    //   }),
+    //   Name: 'Test Flow Expanded',
+    //   Streams: [
+    //     // {
+    //     //   Description: null,
+    //     //   InputModuleID: 'b8c513aa-9471-439f-b70d-4fdf0b409b91',
+    //     //   Name: null,
+    //     //   Order: 0,
+    //     //   OutputModuleID: '436b0e7d-939a-4c1c-ac83-8f8a122d8ce5',
+    //     //   Transform: null,
+    //     //   ID: '00000000-0000-0000-0000-000000000000'
+    //     // },
+    //     // {
+    //     //   Description: null,
+    //     //   InputModuleID: 'be6039f7-6847-429a-b8be-1d34f2ce07ee',
+    //     //   Name: null,
+    //     //   Order: 0,
+    //     //   OutputModuleID: '0ab8dce3-a1a5-43c4-9e37-bba73a77aff3',
+    //     //   Transform: null,
+    //     //   ID: '00000000-0000-0000-0000-000000000000'
+    //     // }
+    //   ].slice(0, 1),
+    //   ID: '6784ddc5-e4d1-428e-aa3c-d488696c9fb7'
+    // };
   }
 
   //  API Methods

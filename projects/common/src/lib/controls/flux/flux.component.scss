@@ -11,10 +11,12 @@
 
   .mat-drawer-content {
     position: relative;
+    overflow: hidden;
 
     .drawer-toggle {
       position: absolute;
       z-index: 1;
+      color: whitesmoke;
 
       &.drawer-toggle-0 {
         top: 2rem;
@@ -42,6 +44,14 @@
       display: block;
       position: relative;
       overflow: hidden;
+    }
+
+    .miniview {
+      position: absolute;
+      top: auto !important;
+      left: auto;
+      bottom: 2rem;
+      right: 2rem;
     }
   }
 }

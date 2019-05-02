@@ -11,7 +11,7 @@ export class FluxActionComponent implements OnInit {
   @Input('action')
   public Action: FluxAction;
 
-  @Output('on-action')
+  @Output('action')
   public OnAction: EventEmitter<FluxAction>;
 
   //  Constructors
