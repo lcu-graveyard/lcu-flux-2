@@ -16,7 +16,7 @@ import {
 import { FathymSharedModule } from '@lcu-ide/common';
 import { FluxComponent } from './controls/flux/flux.component';
 import { FluxElementComponent } from './elements/flux-element/flux-element.component';
-//import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { FluxSurfaceComponent } from './controls/flux-surface/flux-surface.component';
 import { jsPlumbToolkitModule } from './jsplumb/jsplumbToolkit.module';
 import { FluxParser } from './svc/flux-parser';
@@ -24,6 +24,7 @@ import { FluxModuleComponent } from './controls/flux-module/flux-module.componen
 import { FluxActionComponent } from './controls/flux-action/flux-action.component';
 import { FluxModulesBankComponent } from './controls/flux-modules-bank/flux-modules-bank.component';
 import { LCUjsPlumbService } from './svc/lcu-jsplumb.service';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LCUjsPlumbService } from './svc/lcu-jsplumb.service';
   ],
   imports: [
     FathymSharedModule,
+    BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
